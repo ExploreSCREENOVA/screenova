@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0b12">
+<title>SCREENOVA — Discover Beyond the Screen</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b0b12;color:#fff;font-family:Arial,sans-serif}
+header{padding:20px 5%;display:flex;align-items:center;justify-content:space-between;background:#11111b;gap:12px;flex-wrap:wrap}
+.logo{font-size:25px;font-weight:900;letter-spacing:2px;color:#c7a6ff}
+.logo span{color:#fff}
+nav a{color:#ddd;text-decoration:none;margin:0 7px;font-size:13px}
+.hero{padding:65px 6% 55px;background:radial-gradient(ellipse at top right,#402052 0%,#171225 38%,#0b0b12 75%)}
+.tag{color:#d3b4ff;text-transform:uppercase;letter-spacing:3px;font-size:11px}
+h1{font-size:clamp(38px,8vw,65px);line-height:1.05;margin:18px 0}
+h1 span{color:#c7a6ff}
+.hero p{color:#c4c0cf;line-height:1.7;max-width:480px}
+.search{display:flex;max-width:550px;margin-top:25px;gap:8px}
+.search input{min-width:0;flex:1;padding:15px;border:1px solid #383344;border-radius:9px;background:#171520;color:white;font-size:14px}
+button{border:0;border-radius:9px;background:#a56cff;color:#130b20;padding:14px 18px;font-weight:bold;cursor:pointer}
+main{padding:30px 5%}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+h2{font-size:23px;margin:15px 0 8px}
+.muted{color:#a9a4b4;font-size:13px}
+.filters{display:flex;gap:9px;overflow-x:auto;padding:17px 0}
+.filters button{white-space:nowrap;background:#1b1925;color:#eee;border:1px solid #393344;padding:10px 15px}
+.filters button.active{background:#a56cff;color:#130b20}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:15px}
+.card{background:#171520;border:1px solid #292533;border-radius:12px;overflow:hidden}
+.poster{height:145px;display:flex;align-items:center;justify-content:center;font-size:43px;background:linear-gradient(135deg,#35214c,#171c35)}
+.card-body{padding:12px}
+.card h3{font-size:15px;margin:2px 0 8px}
+.card p{font-size:12px;color:#aaa5b6;margin:0 0 12px}
+.badge{font-size:10px;color:#d4b6ff;background:#30213e;padding:5px 8px;border-radius:5px}
+.card button{width:100%;margin-top:12px;padding:10px;font-size:12px}
+.empty{color:#bdb6ca;padding:20px 0;grid-column:1/-1}
+footer{padding:30px 5%;border-top:1px solid #292533;color:#aaa5b6;font-size:12px;line-height:1.8}
+@media(min-width:650px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.poster{height:190px}}
+@media(min-width:950px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero{padding-top:90px;padding-bottom:80px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">SCREEN<span>OVA</span></div>
+  <nav>
+    <a href="#discover">Discover</a>
+    <a href="#anime">Anime</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="tag">Your world of cinema</div>
+  <h1>Discover Beyond<br>the <span>Screen.</span></h1>
+  <p>Explore movies, anime and stories from around the world. Find your next unforgettable watch.</p>
+  <div class="search">
+    <input id="searchInput" type="search" placeholder="Search movies or anime..." aria-label="Search movies or anime">
+    <button onclick="searchMovies()">Search</button>
+  </div>
+</section>
+
+<main id="discover">
+  <div class="section-head">
+    <div>
+      <h2>Explore the Universe</h2>
+      <div class="muted">A first look at your next favourite story.</div>
+    </div>
+  </div>
+  <div class="filters">
+    <button class="active" onclick="filterMovies('All',this)">All</button>
+    <button onclick="filterMovies('Movie',this)">Movies</button>
+    <button onclick="filterMovies('Anime',this)">Anime</button>
+    <button onclick="filterMovies('Indian',this)">Indian Cinema</button>
+  </div>
+  <div class="grid" id="movieGrid"></div>
+</main>
+
+<section id="anime" style="padding:5px 5% 35px">
+  <h2>🌌 Anime Universe</h2>
+  <p class="muted">From legendary adventures to unforgettable worlds.</p>
+  <p class="muted">Anime discovery is part of the SCREENOVA journey.</p>
+</section>
+
+<footer id="about">
+  <div class="logo" style="font-size:19px">SCREEN<span>OVA</span></div>
+  <p>Discover Beyond the Screen.</p>
+  <p>A movie discovery project in progress. Titles shown here are sample listings for demonstration.</p>
+  <p>SCREENOVA does not host movies or provide unauthorised streams.</p>
+  <p>© 2026 SCREENOVA · Made for movie lovers.</p>
+</footer>
+
+<script>
+const movies=[
+ {title:"Inception",type:"Movie",genre:"Sci-Fi · Thriller",year:"2010",icon:"🌌"},
+ {title:"Interstellar",type:"Movie",genre:"Sci-Fi · Adventure",year:"2014",icon:"🚀"},
+ {title:"Your Name",type:"Anime",genre:"Romance · Fantasy",year:"2016",icon:"🌠"},
+ {title:"Spirited Away",type:"Anime",genre:"Fantasy · Adventure",year:"2001",icon:"🏮"},
+ {title:"3 Idiots",type:"Indian",genre:"Comedy · Drama",year:"2009",icon:"🎓"},
+ {title:"Dangal",type:"Indian",genre:"Sports · Drama",year:"2016",icon:"🥇"},
+ {title:"The Dark Knight",type:"Movie",genre:"Action · Crime",year:"2008",icon:"🦇"},
+ {title:"One Piece",type:"Anime",genre:"Adventure · Fantasy",year:"1999",icon:"🏴‍☠️"}
+];
+let currentFilter="All";
+function renderMovies(){
+ const query=document.getElementById("searchInput").value.toLowerCase().trim();
+ const filtered=movies.filter(m=>(currentFilter==="All"||m.type===currentFilter)&&(m.title+" "+m.genre+" "+m.year+" "+m.type).toLowerCase().includes(query));
+ const grid=document.getElementById("movieGrid");
+ if(!filtered.length){grid.innerHTML='<div class="empty">No matches found. Try another search.</div>';return}
+ grid.innerHTML=filtered.map(m=>`<article class="card"><div class="poster">${m.icon}</div><div class="card-body"><span class="badge">${m.type==="Indian"?"INDIAN CINEMA":m.type.toUpperCase()}</span><h3>${m.title}</h3><p>${m.year} · ${m.genre}</p><button onclick="showDetails('${m.title}')">Explore title</button></div></article>`).join("");
+}
+function filterMovies(filter,button){
+ currentFilter=filter;
+ document.querySelectorAll(".filters button").forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
+ renderMovies();
+}
+function searchMovies(){renderMovies()}
+function showDetails(title){alert(title+" — Details and legal watch links will be added in a future update.")}
+document.getElementById("searchInput").addEventListener("input",renderMovies);
+renderMovies();
+</script>
+</body>
+</html>
