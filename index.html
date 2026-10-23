@@ -3,842 +3,123 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>SCREENOVA | Movie Discovery</title>
-
+<meta name="theme-color" content="#0b0b12">
+<title>SCREENOVA — Discover Beyond the Screen</title>
 <style>
-:root {
-    --yellow: #ffd21f;
-    --white: #f7f7f7;
-    --muted: #b8b8b8;
-    --black: #050608;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    background: #000;
-    color: var(--white);
-    font-family: Arial, Helvetica, sans-serif;
-    min-height: 100vh;
-}
-
-button, input {
-    font: inherit;
-}
-
-button {
-    cursor: pointer;
-}
-
-.screen {
-    position: relative;
-    isolation: isolate;
-    width: 100%;
-    min-height: 100vh;
-    overflow: hidden;
-    background: var(--black);
-}
-
-/* CINEMATIC BACKGROUND */
-
-.hero-bg {
-    position: absolute;
-    inset: 0;
-    z-index: -2;
-
-    background-image:
-        url("https://image.tmdb.org/t/p/original/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg");
-
-    background-size: cover;
-    background-position: center 35%;
-}
-
-.hero-bg::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(0,0,0,.96) 0%,
-            rgba(0,0,0,.80) 27%,
-            rgba(0,0,0,.32) 57%,
-            rgba(0,0,0,.10) 100%
-        ),
-        linear-gradient(
-            0deg,
-            #050608 0%,
-            rgba(5,6,8,.85) 8%,
-            transparent 48%,
-            rgba(0,0,0,.25) 100%
-        );
-}
-
-/* NAVIGATION */
-
-header {
-    position: relative;
-    z-index: 5;
-
-    width: 89%;
-    margin: auto;
-    padding-top: 35px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 25px;
-}
-
-.logo {
-    font-size: 25px;
-    font-weight: 900;
-    letter-spacing: 2px;
-    white-space: nowrap;
-}
-
-.logo span {
-    color: var(--yellow);
-}
-
-nav {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-}
-
-nav a {
-    color: #ddd;
-    text-decoration: none;
-    font-size: 13px;
-    position: relative;
-    padding-bottom: 8px;
-    transition: color .2s;
-}
-
-nav a:hover,
-nav a.active {
-    color: white;
-}
-
-nav a.active::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: white;
-}
-
-.search-button {
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 22px;
-}
-
-/* SEARCH BOX */
-
-.search-box {
-    display: none;
-    position: absolute;
-    top: 85px;
-    right: 5.5%;
-    z-index: 10;
-    background: #111;
-    padding: 12px;
-    border: 1px solid #333;
-    border-radius: 5px;
-}
-
-.search-box.show {
-    display: flex;
-    gap: 8px;
-}
-
-.search-box input {
-    background: #222;
-    border: 1px solid #444;
-    color: white;
-    padding: 10px;
-    width: 220px;
-    outline: none;
-}
-
-.search-box button {
-    background: var(--yellow);
-    border: none;
-    padding: 8px 12px;
-    font-weight: bold;
-}
-
-/* HERO CONTENT */
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-
-    width: 89%;
-    margin: auto;
-    padding-top: 125px;
-    padding-bottom: 280px;
-
-    max-width: 1440px;
-}
-
-.eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    color: var(--yellow);
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 30px;
-}
-
-.eyebrow span {
-    background: var(--yellow);
-    color: #111;
-    padding: 4px 6px;
-    font-size: 10px;
-}
-
-h1 {
-    font-size: clamp(36px, 4.2vw, 60px);
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -1.5px;
-    margin-bottom: 15px;
-    text-shadow: 0 2px 20px #000;
-}
-
-.movie-meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 9px;
-
-    color: #ccc;
-    font-size: 12px;
-    margin-bottom: 18px;
-}
-
-.imdb {
-    background: var(--yellow);
-    color: #111;
-    font-weight: 900;
-    padding: 3px 5px;
-    border-radius: 2px;
-    font-size: 10px;
-}
-
-.description {
-    color: #d0d0d0;
-    font-size: 12px;
-    line-height: 1.8;
-    max-width: 390px;
-    margin-bottom: 20px;
-}
-
-.more {
-    color: var(--yellow);
-    text-decoration: none;
-    white-space: nowrap;
-}
-
-.actions {
-    display: flex;
-    gap: 12px;
-}
-
-.btn {
-    padding: 11px 17px;
-    border: 1px solid rgba(255,255,255,.5);
-    border-radius: 4px;
-
-    background: rgba(0,0,0,.3);
-    color: white;
-    font-size: 11px;
-
-    transition: .2s;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-}
-
-.btn-primary {
-    background: var(--yellow);
-    color: #111;
-    border-color: var(--yellow);
-    font-weight: bold;
-}
-
-.play-icon {
-    margin-right: 6px;
-}
-
-/* MOVIE CAROUSEL */
-
-.poster-section {
-    position: absolute;
-    z-index: 4;
-
-    left: 6%;
-    right: 0;
-    bottom: 25px;
-}
-
-.carousel-controls {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 14px;
-}
-
-.arrow {
-    width: 28px;
-    height: 28px;
-
-    background: rgba(0,0,0,.55);
-    color: white;
-    border: 1px solid rgba(255,255,255,.45);
-
-    font-size: 22px;
-    line-height: 1;
-}
-
-.arrow:hover {
-    background: var(--yellow);
-    color: #111;
-}
-
-.posters {
-    display: flex;
-    align-items: flex-end;
-    gap: 18px;
-
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 5px 30px 10px 0;
-
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-}
-
-.posters::-webkit-scrollbar {
-    display: none;
-}
-
-.poster {
-    position: relative;
-    flex: 0 0 130px;
-    height: 185px;
-
-    overflow: hidden;
-    border-radius: 4px;
-    background: #171717;
-
-    box-shadow: 0 8px 25px rgba(0,0,0,.5);
-    transition: transform .25s;
-}
-
-.poster.featured {
-    flex-basis: 145px;
-    height: 215px;
-    border: 1px solid rgba(255,255,255,.3);
-}
-
-.poster:hover {
-    transform: translateY(-8px) scale(1.03);
-}
-
-.poster img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-}
-
-.poster::after {
-    content: "";
-    position: absolute;
-    inset: 45% 0 0;
-
-    background: linear-gradient(
-        transparent,
-        rgba(0,0,0,.9)
-    );
-}
-
-.poster-title {
-    position: absolute;
-    z-index: 1;
-    bottom: 10px;
-    left: 5px;
-    right: 5px;
-
-    color: white;
-    text-align: center;
-    font-size: 10px;
-    font-weight: bold;
-    text-shadow: 0 2px 5px #000;
-}
-
-/* TOAST MESSAGE */
-
-.toast {
-    position: fixed;
-    z-index: 20;
-    left: 50%;
-    bottom: 30px;
-
-    transform: translate(-50%, 20px);
-    opacity: 0;
-    pointer-events: none;
-
-    background: #171717;
-    color: white;
-    border: 1px solid #444;
-    border-radius: 5px;
-
-    padding: 13px 18px;
-    font-size: 13px;
-    transition: .25s;
-}
-
-.toast.show {
-    opacity: 1;
-    transform: translate(-50%, 0);
-}
-
-/* TABLET */
-
-@media (max-width: 900px) {
-    header {
-        width: 92%;
-        gap: 15px;
-    }
-
-    nav {
-        gap: 18px;
-    }
-
-    nav a {
-        font-size: 11px;
-    }
-
-    .hero-content {
-        width: 90%;
-        padding-top: 110px;
-        padding-bottom: 270px;
-    }
-
-    .poster {
-        flex-basis: 110px;
-        height: 155px;
-    }
-
-    .poster.featured {
-        flex-basis: 120px;
-        height: 180px;
-    }
-}
-
-/* MOBILE */
-
-@media (max-width: 600px) {
-    .screen {
-        min-height: 100svh;
-        padding-bottom: 300px;
-    }
-
-    .hero-bg {
-        background-position: 60% center;
-    }
-
-    .hero-bg::after {
-        background:
-            linear-gradient(
-                90deg,
-                rgba(0,0,0,.9),
-                rgba(0,0,0,.3)
-            ),
-            linear-gradient(
-                0deg,
-                #050608 0%,
-                rgba(5,6,8,.95) 12%,
-                rgba(5,6,8,.25) 65%,
-                rgba(0,0,0,.45) 100%
-            );
-    }
-
-    header {
-        padding-top: 25px;
-        flex-wrap: wrap;
-    }
-
-    .logo {
-        font-size: 19px;
-    }
-
-    nav {
-        order: 3;
-        width: 100%;
-        justify-content: space-between;
-        gap: 10px;
-        margin-top: 10px;
-    }
-
-    nav a {
-        font-size: 10px;
-    }
-
-    .hero-content {
-        padding-top: 100px;
-        padding-bottom: 260px;
-    }
-
-    .eyebrow {
-        margin-bottom: 20px;
-    }
-
-    h1 {
-        font-size: clamp(34px, 9vw, 48px);
-    }
-
-    .movie-meta {
-        font-size: 10px;
-        gap: 7px;
-    }
-
-    .description {
-        font-size: 11px;
-        max-width: 330px;
-    }
-
-    .btn {
-        padding: 10px 13px;
-    }
-
-    .poster-section {
-        left: 5%;
-        bottom: 18px;
-    }
-
-    .carousel-controls {
-        margin-bottom: 10px;
-    }
-
-    .posters {
-        gap: 12px;
-    }
-
-    .poster {
-        flex-basis: 95px;
-        height: 140px;
-    }
-
-    .poster.featured {
-        flex-basis: 105px;
-        height: 160px;
-    }
-
-    .poster-title {
-        font-size: 8px;
-    }
-
-    .search-box {
-        top: 115px;
-        right: 4%;
-    }
-
-    .search-box input {
-        width: 160px;
-    }
-}
-
-@media (max-width: 360px) {
-    nav a {
-        font-size: 9px;
-    }
-
-    .hero-content {
-        padding-top: 80px;
-    }
-
-    .poster {
-        flex-basis: 82px;
-        height: 120px;
-    }
-
-    .poster.featured {
-        flex-basis: 90px;
-        height: 138px;
-    }
-}
+*{box-sizing:border-box}
+body{margin:0;background:#0b0b12;color:#fff;font-family:Arial,sans-serif}
+header{padding:20px 5%;display:flex;align-items:center;justify-content:space-between;background:#11111b;gap:12px;flex-wrap:wrap}
+.logo{font-size:25px;font-weight:900;letter-spacing:2px;color:#c7a6ff}
+.logo span{color:#fff}
+nav a{color:#ddd;text-decoration:none;margin:0 7px;font-size:13px}
+.hero{padding:65px 6% 55px;background:radial-gradient(ellipse at top right,#402052 0%,#171225 38%,#0b0b12 75%)}
+.tag{color:#d3b4ff;text-transform:uppercase;letter-spacing:3px;font-size:11px}
+h1{font-size:clamp(38px,8vw,65px);line-height:1.05;margin:18px 0}
+h1 span{color:#c7a6ff}
+.hero p{color:#c4c0cf;line-height:1.7;max-width:480px}
+.search{display:flex;max-width:550px;margin-top:25px;gap:8px}
+.search input{min-width:0;flex:1;padding:15px;border:1px solid #383344;border-radius:9px;background:#171520;color:white;font-size:14px}
+button{border:0;border-radius:9px;background:#a56cff;color:#130b20;padding:14px 18px;font-weight:bold;cursor:pointer}
+main{padding:30px 5%}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+h2{font-size:23px;margin:15px 0 8px}
+.muted{color:#a9a4b4;font-size:13px}
+.filters{display:flex;gap:9px;overflow-x:auto;padding:17px 0}
+.filters button{white-space:nowrap;background:#1b1925;color:#eee;border:1px solid #393344;padding:10px 15px}
+.filters button.active{background:#a56cff;color:#130b20}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:15px}
+.card{background:#171520;border:1px solid #292533;border-radius:12px;overflow:hidden}
+.poster{height:145px;display:flex;align-items:center;justify-content:center;font-size:43px;background:linear-gradient(135deg,#35214c,#171c35)}
+.card-body{padding:12px}
+.card h3{font-size:15px;margin:2px 0 8px}
+.card p{font-size:12px;color:#aaa5b6;margin:0 0 12px}
+.badge{font-size:10px;color:#d4b6ff;background:#30213e;padding:5px 8px;border-radius:5px}
+.card button{width:100%;margin-top:12px;padding:10px;font-size:12px}
+.empty{color:#bdb6ca;padding:20px 0;grid-column:1/-1}
+footer{padding:30px 5%;border-top:1px solid #292533;color:#aaa5b6;font-size:12px;line-height:1.8}
+@media(min-width:650px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.poster{height:190px}}
+@media(min-width:950px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero{padding-top:90px;padding-bottom:80px}}
 </style>
 </head>
-
 <body>
+<header>
+  <div class="logo">SCREEN<span>OVA</span></div>
+  <nav>
+    <a href="#discover">Discover</a>
+    <a href="#anime">Anime</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
 
-<main class="screen">
+<section class="hero">
+  <div class="tag">Your world of cinema</div>
+  <h1>Discover Beyond<br>the <span>Screen.</span></h1>
+  <p>Explore movies, anime and stories from around the world. Find your next unforgettable watch.</p>
+  <div class="search">
+    <input id="searchInput" type="search" placeholder="Search movies or anime..." aria-label="Search movies or anime">
+    <button onclick="searchMovies()">Search</button>
+  </div>
+</section>
 
-    <div class="hero-bg"></div>
-
-    <!-- NAVIGATION -->
-
-    <header>
-        <a href="#" class="logo" style="display:none">
-            SCREEN<span>OVA</span>
-        </a>
-
-        <nav>
-            <a href="#new" class="active">New Movie</a>
-            <a href="#genre">Genre</a>
-            <a href="#country">Country</a>
-            <a href="#movie">Movie</a>
-            <a href="#series">TV Series</a>
-        </nav>
-
-        <button class="search-button" id="searchBtn"
-                aria-label="Search">⌕</button>
-    </header>
-
-    <div class="search-box" id="searchBox">
-        <input type="text" id="searchInput"
-               placeholder="Movie or anime name...">
-        <button id="searchSubmit">Search</button>
+<main id="discover">
+  <div class="section-head">
+    <div>
+      <h2>Explore the Universe</h2>
+      <div class="muted">A first look at your next favourite story.</div>
     </div>
-
-    <!-- HERO MOVIE -->
-
-    <section class="hero-content" id="new">
-
-        <div class="eyebrow">
-            <span>NEW</span> MOVIE
-        </div>
-
-        <h1>
-            Spider man<br>
-            No Way Home
-        </h1>
-
-        <div class="movie-meta">
-            <span class="imdb">IMDb</span>
-            <span>8.2</span>
-            <span>•</span>
-            <span>2021</span>
-            <span>•</span>
-            <span>2 hour 28 minutes</span>
-            <span>•</span>
-            <span>Sci-fi</span>
-        </div>
-
-        <p class="description">
-            Spider-Man's world turns upside down when his identity
-            is revealed. With the help of Doctor Strange, Peter Parker
-            faces a threat unlike anything he has ever known.
-            <a href="#details" class="more">See more</a>
-        </p>
-
-        <div class="actions">
-            <button class="btn" id="trailerBtn">
-                Watch trailer
-            </button>
-
-            <button class="btn btn-primary" id="watchBtn">
-                <span class="play-icon">▶</span>
-                Watch now
-            </button>
-        </div>
-
-    </section>
-
-    <!-- MOVIE POSTERS -->
-
-    <section class="poster-section" aria-label="Movie recommendations">
-
-        <div class="carousel-controls">
-            <button class="arrow" id="prev" aria-label="Previous">‹</button>
-            <button class="arrow" id="next" aria-label="Next">›</button>
-        </div>
-
-        <div class="posters" id="posters">
-
-            <article class="poster">
-                <img loading="lazy"
-                src="https://image.tmdb.org/t/p/w500/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg"
-                alt="Spider-Man Across the Spider-Verse">
-                <div class="poster-title">SPIDER-VERSE</div>
-            </article>
-
-            <article class="poster">
-                <img loading="lazy"
-                src="https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"
-                alt="Avengers Infinity War">
-                <div class="poster-title">AVENGERS</div>
-            </article>
-
-            <article class="poster">
-                <img loading="lazy"
-                src="https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg"
-                alt="Spider-Man No Way Home">
-                <div class="poster-title">SPIDER-MAN</div>
-            </article>
-
-            <article class="poster featured">
-                <img loading="lazy"
-                src="https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg"
-                alt="Spider-Man No Way Home">
-                <div class="poster-title">NO WAY HOME</div>
-            </article>
-
-            <article class="poster">
-                <img loading="lazy"
-                src="https://image.tmdb.org/t/p/w500/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg"
-                alt="Wonder Woman">
-                <div class="poster-title">WONDER WOMAN</div>
-            </article>
-
-            <article class="poster">
-                <img loading="lazy"
-                src="https://image.tmdb.org/t/p/w500/1wY4psJ5NVEhCuOYROwLH2XExM2.jpg"
-                alt="Avengers">
-                <div class="poster-title">MARVEL</div>
-            </article>
-
-            <article class="poster">
-                <img loading="lazy"
-                src="https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg"
-                alt="Movie">
-                <div class="poster-title">DISCOVER</div>
-            </article>
-
-        </div>
-    </section>
-
-    <div class="toast" id="toast" role="status"></div>
-
+  </div>
+  <div class="filters">
+    <button class="active" onclick="filterMovies('All',this)">All</button>
+    <button onclick="filterMovies('Movie',this)">Movies</button>
+    <button onclick="filterMovies('Anime',this)">Anime</button>
+    <button onclick="filterMovies('Indian',this)">Indian Cinema</button>
+  </div>
+  <div class="grid" id="movieGrid"></div>
 </main>
 
+<section id="anime" style="padding:5px 5% 35px">
+  <h2>🌌 Anime Universe</h2>
+  <p class="muted">From legendary adventures to unforgettable worlds.</p>
+  <p class="muted">Anime discovery is part of the SCREENOVA journey.</p>
+</section>
+
+<footer id="about">
+  <div class="logo" style="font-size:19px">SCREEN<span>OVA</span></div>
+  <p>Discover Beyond the Screen.</p>
+  <p>A movie discovery project in progress. Titles shown here are sample listings for demonstration.</p>
+  <p>SCREENOVA does not host movies or provide unauthorised streams.</p>
+  <p>© 2026 SCREENOVA · Made for movie lovers.</p>
+</footer>
+
 <script>
-const posters = document.getElementById("posters");
-const toast = document.getElementById("toast");
-const searchBox = document.getElementById("searchBox");
-const searchInput = document.getElementById("searchInput");
-
-let toastTimer;
-
-function notify(message) {
-    toast.textContent = message;
-    toast.classList.add("show");
-
-    clearTimeout(toastTimer);
-
-    toastTimer = setTimeout(() => {
-        toast.classList.remove("show");
-    }, 2500);
+const movies=[
+ {title:"Inception",type:"Movie",genre:"Sci-Fi · Thriller",year:"2010",icon:"🌌"},
+ {title:"Interstellar",type:"Movie",genre:"Sci-Fi · Adventure",year:"2014",icon:"🚀"},
+ {title:"Your Name",type:"Anime",genre:"Romance · Fantasy",year:"2016",icon:"🌠"},
+ {title:"Spirited Away",type:"Anime",genre:"Fantasy · Adventure",year:"2001",icon:"🏮"},
+ {title:"3 Idiots",type:"Indian",genre:"Comedy · Drama",year:"2009",icon:"🎓"},
+ {title:"Dangal",type:"Indian",genre:"Sports · Drama",year:"2016",icon:"🥇"},
+ {title:"The Dark Knight",type:"Movie",genre:"Action · Crime",year:"2008",icon:"🦇"},
+ {title:"One Piece",type:"Anime",genre:"Adventure · Fantasy",year:"1999",icon:"🏴‍☠️"}
+];
+let currentFilter="All";
+function renderMovies(){
+ const query=document.getElementById("searchInput").value.toLowerCase().trim();
+ const filtered=movies.filter(m=>(currentFilter==="All"||m.type===currentFilter)&&(m.title+" "+m.genre+" "+m.year+" "+m.type).toLowerCase().includes(query));
+ const grid=document.getElementById("movieGrid");
+ if(!filtered.length){grid.innerHTML='<div class="empty">No matches found. Try another search.</div>';return}
+ grid.innerHTML=filtered.map(m=>`<article class="card"><div class="poster">${m.icon}</div><div class="card-body"><span class="badge">${m.type==="Indian"?"INDIAN CINEMA":m.type.toUpperCase()}</span><h3>${m.title}</h3><p>${m.year} · ${m.genre}</p><button onclick="showDetails('${m.title}')">Explore title</button></div></article>`).join("");
 }
-
-/* MOVIE CAROUSEL */
-
-document.getElementById("prev").addEventListener("click", () => {
-    posters.scrollBy({
-        left: -260,
-        behavior: "smooth"
-    });
-});
-
-document.getElementById("next").addEventListener("click", () => {
-    posters.scrollBy({
-        left: 260,
-        behavior: "smooth"
-    });
-});
-
-/* TRAILER BUTTON */
-
-document.getElementById("trailerBtn").addEventListener("click", () => {
-    notify("Trailer is not connected yet.");
-});
-
-/* WATCH BUTTON */
-
-document.getElementById("watchBtn").addEventListener("click", () => {
-    notify("Streaming service is not connected yet.");
-});
-
-/* SEARCH */
-
-document.getElementById("searchBtn").addEventListener("click", () => {
-    searchBox.classList.toggle("show");
-
-    if (searchBox.classList.contains("show")) {
-        searchInput.focus();
-    }
-});
-
-function searchMovies() {
-    const query = searchInput.value.trim();
-
-    if (!query) {
-        notify("Please enter a movie or anime name.");
-        return;
-    }
-
-    const found = [...document.querySelectorAll(".poster-title")]
-        .some(item =>
-            item.textContent.toLowerCase().includes(query.toLowerCase())
-        );
-
-    if (found) {
-        notify("Matching poster found below.");
-        posters.scrollIntoView({
-            behavior: "smooth",
-            block: "nearest"
-        });
-    } else {
-        notify("No matching poster in this demo.");
-    }
+function filterMovies(filter,button){
+ currentFilter=filter;
+ document.querySelectorAll(".filters button").forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
+ renderMovies();
 }
-
-document.getElementById("searchSubmit")
-    .addEventListener("click", searchMovies);
-
-searchInput.addEventListener("keydown", event => {
-    if (event.key === "Enter") {
-        searchMovies();
-    }
-});
-
-/* NAVIGATION */
-
-document.querySelectorAll("nav a").forEach(link => {
-    link.addEventListener("click", event => {
-        event.preventDefault();
-
-        document.querySelectorAll("nav a").forEach(item => {
-            item.classList.remove("active");
-        });
-
-        link.classList.add("active");
-
-        notify(link.textContent + " selected");
-    });
-});
+function searchMovies(){renderMovies()}
+function showDetails(title){alert(title+" — Details and legal watch links will be added in a future update.")}
+document.getElementById("searchInput").addEventListener("input",renderMovies);
+renderMovies();
 </script>
-
 </body>
 </html>
