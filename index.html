@@ -3,543 +3,1071 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#10100b">
-<title>SCREENOVA | Discover Beyond the Screen</title>
+<meta name="theme-color" content="#0b0b0b">
+
+<title>SCREENOVA — Discover Beyond the Screen</title>
 
 <style>
 :root {
-  --bg:#10100b;
-  --panel:#1c1b10;
+  --bg:#0b0b0b;
+  --panel:#151515;
+  --panel2:#1c1c1c;
   --yellow:#ffd21f;
-  --text:#f5f3e8;
-  --muted:#aaa99e;
-  --border:#333124;
+  --text:#f7f7f2;
+  --muted:#a5a5a5;
+  --border:#2a2a2a;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  background:var(--bg);color:var(--text);
+
+* {
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html {
+  scroll-behavior:smooth;
+  scroll-padding-top:100px;
+}
+
+body {
+  background:var(--bg);
+  color:var(--text);
   font-family:Arial,Helvetica,sans-serif;
+  line-height:1.5;
 }
-header{
-  position:sticky;top:0;z-index:5;
-  background:#10100bf5;border-bottom:1px solid var(--border);
+
+button,input {
+  font:inherit;
 }
-.nav{
-  max-width:1150px;margin:auto;padding:16px 20px;
-  display:flex;align-items:center;justify-content:space-between;
-  gap:16px;flex-wrap:wrap;
+
+button,a {
+  -webkit-tap-highlight-color:transparent;
 }
-.logo{font-size:25px;font-weight:900;letter-spacing:2px}
-.logo span,.yellow{color:var(--yellow)}
-nav{display:flex;gap:18px;flex-wrap:wrap}
-nav a{color:var(--muted);text-decoration:none;font-size:14px}
-nav a:hover{color:var(--yellow)}
-.search{display:flex;gap:7px}
-input{
-  width:190px;max-width:48vw;padding:10px;
-  color:var(--text);background:var(--panel);
-  border:1px solid var(--border);border-radius:7px;
+
+button {
+  cursor:pointer;
 }
-button{cursor:pointer}
-.search button,.primary{
-  border:0;background:var(--yellow);color:#171407;
-  font-weight:bold;padding:10px 14px;border-radius:7px;
+
+a {
+  color:inherit;
+  text-decoration:none;
 }
-.hero{max-width:1150px;margin:auto;padding:70px 20px 45px}
-.eyebrow{color:var(--yellow);font-size:12px;letter-spacing:3px;font-weight:bold}
-h1{font-size:clamp(38px,7vw,72px);line-height:1.08;margin:18px 0}
-.hero p{max-width:580px;color:var(--muted);line-height:1.8;margin-bottom:22px}
-.hero a{display:inline-block;text-decoration:none}
-main{max-width:1150px;margin:auto;padding:0 20px 50px}
-.categories{display:flex;gap:10px;overflow:auto;padding:10px 0 25px}
-.chip{
-  flex-shrink:0;padding:9px 15px;border-radius:25px;
-  border:1px solid var(--border);background:var(--panel);
-  color:var(--text)
+
+.yellow {
+  color:var(--yellow);
 }
-.chip.active,.chip:hover{background:var(--yellow);color:#171407}
-.section{padding:20px 0 35px;scroll-margin-top:100px}
-.heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-.heading h2{font-size:25px}
-.heading p{font-size:12px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
-.card{
-  min-width:0;background:var(--panel);border:1px solid var(--border);
-  border-radius:10px;overflow:hidden;transition:.2s
+
+/* HEADER */
+
+header {
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(11,11,11,.96);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(14px);
 }
-.card:hover{transform:translateY(-4px);border-color:var(--yellow)}
-.poster{
-  height:220px;display:flex;align-items:center;justify-content:center;
-  text-align:center;padding:12px;font-size:20px;font-weight:900;
-  color:var(--yellow);background:linear-gradient(145deg,#39351b,#11110c);
-  border-bottom:1px solid var(--border)
+
+.nav {
+  max-width:1250px;
+  margin:auto;
+  padding:16px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:22px;
 }
-.card-info{padding:11px}
-.card h3{font-size:15px;margin-bottom:6px}
-.meta{font-size:12px;color:var(--muted);margin-bottom:10px}
-.actions{display:flex;gap:6px}
-.actions button{
-  flex:1;min-width:0;padding:8px 3px;font-size:11px;
-  background:transparent;color:var(--text);
-  border:1px solid var(--border);border-radius:5px
+
+.logo {
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:2px;
+  white-space:nowrap;
 }
-.actions button:hover,.actions .saved{color:var(--yellow);border-color:var(--yellow)}
-.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:25px 5px}
-footer{border-top:1px solid var(--border);padding:30px 20px;text-align:center;color:var(--muted);font-size:13px}
-footer p{margin-top:8px}
-@media(max-width:800px){
-  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .poster{height:200px}
+
+.logo span {
+  color:var(--yellow);
 }
-@media(max-width:520px){
-  .nav{padding:13px}
-  .search{width:100%}
-  .search input{width:100%;max-width:none}
-  nav{gap:15px}
-  .hero{padding:48px 16px 35px}
-  main{padding:0 13px 35px}
-  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
-  .poster{height:210px}
-  .heading h2{font-size:21px}
-  .heading p{display:none}
+
+nav {
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+nav a {
+  color:var(--muted);
+  font-size:13px;
+  transition:.2s;
+}
+
+nav a:hover {
+  color:var(--yellow);
+}
+
+.search {
+  display:flex;
+  gap:7px;
+}
+
+.search input {
+  width:190px;
+  min-width:0;
+  padding:10px 12px;
+  background:#171717;
+  border:1px solid var(--border);
+  border-radius:8px;
+  outline:none;
+  color:var(--text);
+}
+
+.search input:focus {
+  border-color:var(--yellow);
+}
+
+.search button,
+.primary {
+  background:var(--yellow);
+  color:#111;
+  border:0;
+  padding:10px 15px;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:800;
+}
+
+/* HERO */
+
+.hero {
+  position:relative;
+  overflow:hidden;
+  min-height:400px;
+  display:flex;
+  align-items:center;
+  border-bottom:1px solid var(--border);
+  background:
+    radial-gradient(ellipse at 80% 45%,#473813 0%,transparent 32%),
+    radial-gradient(ellipse at 95% 90%,#28210d 0%,transparent 38%),
+    linear-gradient(110deg,#111 0%,#111 50%,#191609 100%);
+}
+
+.hero-inner {
+  position:relative;
+  z-index:1;
+  width:100%;
+  max-width:1250px;
+  margin:auto;
+  padding:70px 22px;
+}
+
+.eyebrow {
+  color:var(--yellow);
+  font-size:11px;
+  letter-spacing:4px;
+  font-weight:900;
+}
+
+.hero h1 {
+  max-width:750px;
+  font-size:clamp(42px,7vw,78px);
+  line-height:1.04;
+  letter-spacing:-2px;
+  margin:20px 0;
+}
+
+.hero p {
+  max-width:560px;
+  color:#b6b6b6;
+  line-height:1.9;
+  font-size:15px;
+  margin-bottom:25px;
+}
+
+.hero-buttons {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.secondary {
+  padding:10px 15px;
+  border:1px solid #454545;
+  border-radius:8px;
+  background:#171717;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.secondary:hover {
+  border-color:var(--yellow);
+}
+
+/* CATEGORY FILTERS */
+
+main {
+  max-width:1250px;
+  margin:auto;
+  padding:0 22px 55px;
+}
+
+.filter-bar {
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding:25px 0 10px;
+  scrollbar-width:thin;
+}
+
+.chip {
+  flex-shrink:0;
+  border:1px solid var(--border);
+  border-radius:30px;
+  background:var(--panel);
+  color:#ccc;
+  padding:9px 16px;
+  font-size:12px;
+  font-weight:700;
+  transition:.2s;
+}
+
+.chip:hover,
+.chip.active {
+  background:var(--yellow);
+  border-color:var(--yellow);
+  color:#111;
+}
+
+/* SECTIONS */
+
+.section {
+  padding:35px 0 15px;
+  scroll-margin-top:90px;
+}
+
+.heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.heading h2 {
+  font-size:clamp(21px,3vw,29px);
+  letter-spacing:-.5px;
+}
+
+.heading p {
+  color:var(--muted);
+  font-size:12px;
+}
+
+.section-label {
+  display:block;
+  color:var(--yellow);
+  font-size:10px;
+  letter-spacing:2px;
+  font-weight:900;
+  margin-bottom:5px;
+}
+
+/* MOVIE GRID */
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:17px;
+}
+
+.card {
+  min-width:0;
+  overflow:hidden;
+  border:1px solid var(--border);
+  border-radius:11px;
+  background:var(--panel);
+  transition:transform .22s,border-color .22s,box-shadow .22s;
+}
+
+.card:hover {
+  transform:translateY(-5px);
+  border-color:#8f771e;
+  box-shadow:0 12px 35px #0008;
+}
+
+.poster {
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:flex-start;
+  height:245px;
+  padding:13px;
+  overflow:hidden;
+  isolation:isolate;
+  background:var(--art,#292929);
+}
+
+.poster::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:
+    radial-gradient(ellipse at 70% 25%,#ffffff24,transparent 38%),
+    linear-gradient(180deg,#00000005 0%,#00000012 35%,#000000d9 100%);
+}
+
+.poster::after {
+  content:"";
+  position:absolute;
+  z-index:-1;
+  width:150px;
+  height:150px;
+  right:-40px;
+  top:45px;
+  border:1px solid #ffffff24;
+  border-radius:50%;
+  box-shadow:0 0 0 20px #ffffff08,0 0 0 42px #ffffff05;
+}
+
+.poster-top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:5px;
+  width:100%;
+}
+
+.badge {
+  padding:5px 7px;
+  background:#0009;
+  color:#fff;
+  border:1px solid #ffffff24;
+  border-radius:4px;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.5px;
+}
+
+.rating {
+  padding:5px 7px;
+  background:#000a;
+  border-radius:5px;
+  color:var(--yellow);
+  font-size:11px;
+  font-weight:900;
+}
+
+.poster-art {
+  width:100%;
+  text-align:center;
+  padding:10px 0;
+}
+
+.poster-symbol {
+  display:block;
+  font-size:clamp(38px,5vw,65px);
+  font-weight:900;
+  line-height:1.1;
+  text-shadow:0 5px 25px #0008;
+}
+
+.poster-title {
+  display:block;
+  margin-top:10px;
+  font-size:clamp(15px,2vw,22px);
+  font-weight:900;
+  line-height:1.1;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  overflow-wrap:anywhere;
+  text-shadow:0 3px 10px #000;
+}
+
+.poster-bottom {
+  width:100%;
+  font-size:9px;
+  letter-spacing:2px;
+  font-weight:800;
+  color:#ffffffb8;
+}
+
+.card-info {
+  padding:12px;
+}
+
+.card-info h3 {
+  font-size:14px;
+  line-height:1.4;
+  margin-bottom:5px;
+  overflow-wrap:anywhere;
+}
+
+.meta {
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:12px;
+}
+
+.card-actions {
+  display:flex;
+  gap:6px;
+}
+
+.card-btn {
+  flex:1;
+  min-width:0;
+  padding:8px 3px;
+  border:1px solid #343434;
+  background:#1c1c1c;
+  color:#eee;
+  border-radius:6px;
+  font-size:10px;
+  font-weight:700;
+  transition:.2s;
+}
+
+.card-btn:hover,
+.card-btn.saved {
+  border-color:var(--yellow);
+  color:var(--yellow);
+}
+
+.empty {
+  grid-column:1/-1;
+  text-align:center;
+  color:var(--muted);
+  background:var(--panel);
+  border:1px dashed #343434;
+  border-radius:10px;
+  padding:30px 15px;
+  font-size:13px;
+}
+
+/* ANIME SECTION */
+
+.anime-section {
+  position:relative;
+  margin-top:35px;
+  padding:25px;
+  border:1px solid #3b3214;
+  border-radius:16px;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 95% 10%,#49391266,transparent 45%),
+    linear-gradient(135deg,#17150d,#101010 65%);
+}
+
+.anime-intro {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.anime-intro h2 {
+  font-size:clamp(26px,4vw,38px);
+  margin:4px 0 7px;
+}
+
+.anime-intro p {
+  color:var(--muted);
+  font-size:13px;
+  max-width:450px;
+}
+
+.anime-mark {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  width:75px;
+  height:75px;
+  border:1px solid #8e751f;
+  border-radius:50%;
+  color:var(--yellow);
+  font-size:35px;
+  box-shadow:0 0 35px #ffd21f12;
+}
+
+/* DETAILS MODAL */
+
+dialog {
+  width:min(520px,calc(100% - 28px));
+  max-height:85vh;
+  overflow:auto;
+  margin:auto;
+  padding:0;
+  border:1px solid #484020;
+  border-radius:14px;
+  background:#151515;
+  color:var(--text);
+}
+
+dialog::backdrop {
+  background:#000c;
+  backdrop-filter:blur(5px);
+}
+
+.modal-content {
+  padding:25px;
+}
+
+.modal-top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.modal-top h2 {
+  font-size:24px;
+}
+
+.close-btn {
+  border:1px solid var(--border);
+  background:#222;
+  color:#fff;
+  width:35px;
+  height:35px;
+  border-radius:50%;
+}
+
+.modal-meta {
+  color:var(--yellow);
+  font-size:12px;
+  margin-bottom:15px;
+}
+
+.modal-description {
+  color:#c1c1c1;
+  font-size:14px;
+  line-height:1.8;
+  margin-bottom:20px;
+}
+
+.modal-note {
+  color:#858585;
+  font-size:11px;
+  margin-top:15px;
+}
+
+/* FOOTER */
+
+footer {
+  border-top:1px solid var(--border);
+  padding:35px 20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+}
+
+footer .logo {
+  margin-bottom:10px;
+}
+
+footer p {
+  margin-top:7px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:950px) {
+  .nav {
+    flex-wrap:wrap;
+  }
+
+  .grid {
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+
+  nav {
+    order:3;
+    width:100%;
+    justify-content:center;
+  }
+
+  .search {
+    margin-left:auto;
+  }
+}
+
+@media(max-width:650px) {
+  .nav {
+    padding:13px;
+    gap:13px;
+  }
+
+  .logo {
+    font-size:22px;
+  }
+
+  .search {
+    width:100%;
+    margin:0;
+  }
+
+  .search input {
+    width:100%;
+  }
+
+  nav {
+    order:0;
+    width:auto;
+    flex:1;
+    gap:13px;
+    justify-content:flex-end;
+  }
+
+  nav a {
+    font-size:12px;
+  }
+
+  .hero {
+    min-height:350px;
+  }
+
+  .hero-inner {
+    padding:55px 17px;
+  }
+
+  .hero h1 {
+    letter-spacing:-1.5px;
+  }
+
+  .hero p {
+    font-size:13px;
+  }
+
+  main {
+    padding:0 13px 40px;
+  }
+
+  .grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+  }
+
+  .poster {
+    height:220px;
+    padding:10px;
+  }
+
+  .poster-symbol {
+    font-size:48px;
+  }
+
+  .poster-title {
+    font-size:18px;
+  }
+
+  .card-info {
+    padding:10px;
+  }
+
+  .card-info h3 {
+    font-size:13px;
+  }
+
+  .heading p {
+    display:none;
+  }
+
+  .anime-section {
+    padding:15px;
+  }
+
+  .anime-mark {
+    width:52px;
+    height:52px;
+    font-size:25px;
+  }
+
+  .section {
+    padding-top:28px;
+  }
+}
+
+@media(max-width:390px) {
+  .nav {
+    justify-content:center;
+  }
+
+  nav {
+    width:100%;
+    justify-content:center;
+    order:3;
+  }
+
+  .poster {
+    height:195px;
+  }
+
+  .poster-symbol {
+    font-size:38px;
+  }
+
+  .poster-title {
+    font-size:15px;
+  }
+
+  .card-btn {
+    font-size:9px;
+  }
 }
 </style>
 </head>
+
 <body>
 
 <header>
   <div class="nav">
-    <a href="#" class="logo" style="text-decoration:none;color:inherit">SCREEN<span class="yellow">OVA</span></a>
+    <a href="#" class="logo">SCREEN<span>OVA</span></a>
+
     <nav>
       <a href="#">Home</a>
-      <a href="#movies">Movies</a>
+      <a href="#trending">Trending</a>
+      <a href="#global">Global</a>
       <a href="#anime">Anime</a>
       <a href="#watchlist">Watchlist</a>
     </nav>
+
     <form class="search" id="searchForm">
-      <input id="searchInput" placeholder="Search titles..." aria-label="Search titles">
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Search titles..."
+        aria-label="Search movies and anime"
+      >
       <button type="submit">Search</button>
     </form>
   </div>
 </header>
 
 <section class="hero">
-  <div class="eyebrow">A WORLD OF STORIES</div>
-  <h1>Discover Beyond<br><span class="yellow">the Screen.</span></h1>
-  <p>
-    From Indian cinema to Hollywood and anime, discover stories
-    that stay with you long after the screen goes dark.
-  </p>
-  <a class="primary" href="#movies">Explore Discoveries ↗</a>
+  <div class="hero-inner">
+    <div class="eyebrow">YOUR NEXT STORY STARTS HERE</div>
+
+    <h1>
+      Discover Beyond<br>
+      <span class="yellow">the Screen.</span>
+    </h1>
+
+    <p>
+      From unforgettable Indian cinema to global blockbusters
+      and extraordinary anime, discover your next favourite story.
+    </p>
+
+    <div class="hero-buttons">
+      <a class="primary" href="#trending">Explore Discoveries ↗</a>
+      <a class="secondary" href="#anime">Enter AnimeVerse ✦</a>
+    </div>
+  </div>
 </section>
 
 <main>
-  <div class="categories">
-    <button class="chip active" data-filter="All">All</button>
-    <button class="chip" data-filter="Indian">Indian Cinema</button>
-    <button class="chip" data-filter="Hollywood">Hollywood</button>
-    <button class="chip" data-filter="Anime">Anime</button>
+
+  <div class="filter-bar" aria-label="Filter titles">
+    <button class="chip active" data-filter="All">Explore All</button>
+    <button class="chip" data-filter="Indian">Indian Hits</button>
+    <button class="chip" data-filter="Hollywood">Global Cinema</button>
+    <button class="chip" data-filter="Anime">AnimeVerse</button>
   </div>
 
-  <section class="section" id="movies">
+  <section class="section" id="trending">
     <div class="heading">
-      <h2>Popular <span class="yellow">Discoveries</span></h2>
-      <p>Find your next favourite story.</p>
+      <div>
+        <span class="section-label">WHAT TO WATCH</span>
+        <h2>Trending <span class="yellow">Now</span></h2>
+      </div>
+      <p>Stories worth discovering.</p>
     </div>
-    <div class="grid" id="movieGrid"></div>
+
+    <div class="grid" id="trendingGrid"></div>
   </section>
 
-  <section class="section" id="anime">
+  <section class="section" id="editors">
     <div class="heading">
-      <h2>Anime <span class="yellow">Universe</span></h2>
-      <p>Enter another world.</p>
+      <div>
+        <span class="section-label">HANDPICKED FOR YOU</span>
+        <h2>Editor's <span class="yellow">Picks</span></h2>
+      </div>
+      <p>Stories that stay with you.</p>
     </div>
+
+    <div class="grid" id="editorsGrid"></div>
+  </section>
+
+  <section class="section" id="hidden">
+    <div class="heading">
+      <div>
+        <span class="section-label">BEYOND THE OBVIOUS</span>
+        <h2>Hidden <span class="yellow">Gems</span></h2>
+      </div>
+      <p>Find something unexpected.</p>
+    </div>
+
+    <div class="grid" id="hiddenGrid"></div>
+  </section>
+
+  <section class="section" id="global">
+    <div class="heading">
+      <div>
+        <span class="section-label">CINEMA WITHOUT BORDERS</span>
+        <h2>Global <span class="yellow">Cinema</span></h2>
+      </div>
+      <p>Different worlds. Endless stories.</p>
+    </div>
+
+    <div class="grid" id="globalGrid"></div>
+  </section>
+
+  <section class="section anime-section" id="anime">
+    <div class="anime-intro">
+      <div>
+        <span class="section-label">ANOTHER WORLD AWAITS</span>
+        <h2><span class="yellow">AnimeVerse</span> ✦</h2>
+        <p>
+          Legendary adventures, unforgettable characters
+          and worlds beyond imagination.
+        </p>
+      </div>
+
+      <div class="anime-mark" aria-hidden="true">✦</div>
+    </div>
+
     <div class="grid" id="animeGrid"></div>
   </section>
 
   <section class="section" id="watchlist">
     <div class="heading">
-      <h2>Your <span class="yellow">Watchlist</span></h2>
-      <p>Your saved discoveries.</p>
+      <div>
+        <span class="section-label">SAVE FOR LATER</span>
+        <h2>Your <span class="yellow">Watchlist</span></h2>
+      </div>
+      <p>Your personal collection.</p>
     </div>
+
     <div class="grid" id="watchlistGrid"></div>
   </section>
+
 </main>
 
 <footer>
-  <div class="logo">SCREEN<span class="yellow">OVA</span></div>
+  <div class="logo">SCREEN<span>OVA</span></div>
   <p>Discover Beyond the Screen.</p>
+  <p>Explore stories. Find your next favourite.</p>
   <p>© <span id="year"></span> SCREENOVA</p>
+  <p style="font-size:10px;margin-top:12px">
+    An independent discovery demo. Not affiliated with any streaming service.
+  </p>
 </footer>
 
-<script>
-const titles = [
-  {id:1,title:"3 Idiots",year:2009,genre:"Indian",type:"movie",rating:"8.4"},
-  {id:2,title:"Dangal",year:2016,genre:"Indian",type:"movie",rating:"8.3"},
-  {id:3,title:"Zindagi Na Milegi Dobara",year:2011,genre:"Indian",type:"movie",rating:"8.2"},
-  {id:4,title:"Interstellar",year:2014,genre:"Hollywood",type:"movie",rating:"8.7"},
-  {id:5,title:"Inception",year:2010,genre:"Hollywood",type:"movie",rating:"8.8"},
-  {id:6,title:"The Dark Knight",year:2008,genre:"Hollywood",type:"movie",rating:"9.0"},
-  {id:7,title:"Your Name",year:2016,genre:"Anime",type:"anime",rating:"8.4"},
-  {id:8,title:"Spirited Away",year:2001,genre:"Anime",type:"anime",rating:"8.6"},
-  {id:9,title:"A Silent Voice",year:2016,genre:"Anime",type:"anime",rating:"8.2"},
-  {id:10,title:"One Piece",year:1999,genre:"Anime",type:"anime",rating:"9.0"},
-  {id:11,title:"3 Idiots",year:2009,genre:"Indian",type:"movie",rating:"8.4"},
-  {id:12,title:"The Matrix",year:1999,genre:"Hollywood",type:"movie",rating:"8.7"}
-];
-
-const movieGrid=document.getElementById("movieGrid");
-const animeGrid=document.getElementById("animeGrid");
-const watchlistGrid=document.getElementById("watchlistGrid");
-const searchInput=document.getElementById("searchInput");
-let filter="All";
-let query="";
-
-function readSaved(){
-  try{return JSON.parse(localStorage.getItem("screenovaSaved")||"[]")}
-  catch(e){return []}
-}
-function writeSaved(ids){
-  try{localStorage.setItem("screenovaSaved",JSON.stringify(ids))}
-  catch(e){}
-}
-function visibleTitles(){
-  return titles.filter(t=>
-    (filter==="All"||t.genre===filter)&&
-    t.title.toLowerCase().includes(query.toLowerCase())
-  );
-}
-function makeCard(t){
-  const saved=readSaved().includes(t.id);
-  return `<article class="card">
-    <div class="poster">${t.title}</div>
-    <div class="card-info">
-      <h3>${t.title}</h3>
-      <div class="meta">${t.year} · ★ ${t.rating}</div>
-      <div class="actions">
-        <button data-info="${t.id}">Details</button>
-        <button data-save="${t.id}" class="${saved?"saved":""}">${saved?"♥ Saved":"♡ Save"}</button>
-      </div>
+<dialog id="detailsDialog">
+  <div class="modal-content">
+    <div class="modal-top">
+      <h2 id="modalTitle">Title</h2>
+      <button class="close-btn" id="closeModal" aria-label="Close">✕</button>
     </div>
-  </article>`;
-}
-function render(){
-  const visible=visibleTitles();
-  const movies=visible.filter(t=>t.type==="movie");
-  const anime=visible.filter(t=>t.type==="anime");
-  movieGrid.innerHTML=movies.length?movies.map(makeCard).join(''):
-    '<div class="empty">No movies found. Try another search.</div>';
-  animeGrid.innerHTML=anime.length?anime.map(makeCard).join(''):
-    '<div class="empty">No anime found in this selection.</div>';
-  const saved=readSaved().map(id=>titles.find(t=>t.id===id)).filter(Boolean);
-  watchlistGrid.innerHTML=saved.length?saved.map(makeCard).join(''):
-    '<div class="empty">Your watchlist is empty. Save a title to add it here.</div>';
-}
-document.getElementById("searchForm").addEventListener("submit",e=>{
-  e.preventDefault();query=searchInput.value.trim();render();
-  document.getElementById("movies").scrollIntoView({behavior:"smooth"});
-});
-document.querySelectorAll("[data-filter]").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    filter=btn.dataset.filter;
-    document.querySelectorAll("[data-filter]").forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");render();
-  });
-});
-document.addEventListener("click",e=>{
-  const save=e.target.closest("[data-save]");
-  const info=e.target.closest("[data-info]");
-  if(save){
-    const id=Number(save.dataset.save);
-    let ids=readSaved();
-    ids=ids.includes(id)?ids.filter(x=>x!==id):[...ids,id];
-    writeSaved(ids);render();
-  }
-  if(info){
-    const t=titles.find(x=>x.id===Number(info.dataset.info));
-    if(t)alert(t.title+" ("+t.year+")\nCategory: "+t.genre+"\nRating: "+t.rating+"/10\n\nSample listing. Movie descriptions and streaming availability will be added later.");
-  }
-});
-document.getElementById("year").textContent=new Date().getFullYear();
-render();
-</script>
-</body>
-</html>#anime">Anime</a>
-        <a href="#watchlist">Watchlist</a>
-    </div>
-    <p style="margin-top:20px">
-        © <span id="year"></span> SCREENOVA. Made for story lovers.
+
+    <div class="modal-meta" id="modalMeta"></div>
+    <p class="modal-description" id="modalDescription"></p>
+    <button class="primary" id="modalSave">♡ Add to Watchlist</button>
+
+    <p class="modal-note">
+      Sample listing. Availability and streaming links are not provided.
     </p>
-</footer>
+  </div>
+</dialog>
 
 <script>
-const API_KEY = "";
-const API_BASE = "https://api.themoviedb.org/3";
-const IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
+"use strict";
 
-const movieGrid = document.getElementById("movieGrid");
-const animeGrid = document.getElementById("animeGrid");
-const watchlistGrid = document.getElementById("watchlistGrid");
-const searchInput = document.getElementById("searchInput");
+/*
+  SCREENOVA demo catalogue.
+  All content is local sample data.
+  No API key or external service is required.
+*/
 
-let currentCategory = "all";
-let currentMovies = [];
-let currentAnime = [];
-
-document.getElementById("year").textContent = new Date().getFullYear();
-
-function getWatchlist() {
-    try {
-        return JSON.parse(localStorage.getItem("screenova-watchlist") || "[]");
-    } catch {
-        return [];
-    }
-}
-
-function saveWatchlist(list) {
-    localStorage.setItem("screenova-watchlist", JSON.stringify(list));
-}
-
-function escapeHTML(value = "") {
-    return String(value).replace(/[&<>"']/g, char => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-    })[char]);
-}
-
-function showStatus(grid, message) {
-    grid.innerHTML = `<div class="status">${escapeHTML(message)}</div>`;
-}
-
-async function fetchTitles(endpoint, params = {}) {
-    if (!API_KEY) {
-        throw new Error("API key required");
-    }
-
-    const url = new URL(API_BASE + endpoint);
-
-    url.searchParams.set("api_key", API_KEY);
-    url.searchParams.set("language", "en-US");
-
-    Object.entries(params).forEach(([key, value]) => {
-        url.searchParams.set(key, value);
-    });
-
-    const response = await fetch(url);
-
-    if (!response.ok) {
-        throw new Error("Movie service unavailable");
-    }
-
-    const data = await response.json();
-    return data.results || [];
-}
-
-function renderCards(grid, titles, category = "movie") {
-    if (!titles.length) {
-        showStatus(grid, "No titles found. Try another search.");
-        return;
-    }
-
-    grid.innerHTML = titles.map(item => {
-        const id = item.id;
-        const title = item.title || item.name || "Untitled";
-        const year = (item.release_date || item.first_air_date || "").slice(0, 4);
-        const rating = Number(item.vote_average || 0).toFixed(1);
-        const poster = item.poster_path
-            ? IMAGE_BASE + item.poster_path
-            : "";
-
-        const saved = getWatchlist().some(savedItem => savedItem.id === id);
-
-        return `
-            <article class="movie-card">
-                <div class="poster-wrap">
-                    ${poster
-                        ? `<img class="poster" src="${poster}" alt="${escapeHTML(title)} poster" loading="lazy">`
-                        : `<div class="poster" role="img" aria-label="Poster unavailable"></div>`
-                    }
-                    <span class="rating">★ ${rating}</span>
-                </div>
-                <div class="movie-info">
-                    <h3>${escapeHTML(title)}</h3>
-                    <div class="movie-meta">${escapeHTML(year || "Year unavailable")}</div>
-                    <div class="card-actions">
-                        <button class="card-btn" data-details="${id}" data-kind="${category}">
-                            Details
-                        </button>
-                        <button class="card-btn ${saved ? "saved" : ""}"
-                            data-save="${id}" data-kind="${category}"
-                            aria-label="${saved ? "Remove from" : "Add to"} watchlist">
-                            ${saved ? "♥ Saved" : "♡ Save"}
-                        </button>
-                    </div>
-                </div>
-            </article>`;
-    }).join("");
-}
-
-async function loadPopular() {
-    showStatus(movieGrid, "Loading popular movies...");
-
-    if (!API_KEY) {
-        showStatus(movieGrid, "Connect your free TMDB API key to load live movie posters and ratings.");
-        return;
-    }
-
-    try {
-        currentMovies = await fetchTitles("/movie/popular", { page: "1" });
-        renderCards(movieGrid, currentMovies, "movie");
-    } catch {
-        showStatus(movieGrid, "Could not load movies. Check your API key and internet connection.");
-    }
-}
-
-async function loadAnime() {
-    showStatus(animeGrid, "Loading anime...");
-
-    if (!API_KEY) {
-        showStatus(animeGrid, "Connect your TMDB API key to load live anime discoveries.");
-        return;
-    }
-
-    try {
-        currentAnime = await fetchTitles("/discover/tv", {
-            with_genres: "16",
-            with_original_language: "ja",
-            sort_by: "popularity.desc",
-            page: "1"
-        });
-        renderCards(animeGrid, currentAnime, "anime");
-    } catch {
-        showStatus(animeGrid, "Could not load anime. Please check your connection.");
-    }
-}
-
-async function searchTitles(query) {
-    if (!query.trim()) {
-        loadPopular();
-        loadAnime();
-        return;
-    }
-
-    showStatus(movieGrid, "Searching...");
-    showStatus(animeGrid, "Searching...");
-
-    if (!API_KEY) {
-        showStatus(movieGrid, "Live search needs a TMDB API key. Add it in the API_KEY setting in this file.");
-        showStatus(animeGrid, "Live search needs a TMDB API key.");
-        return;
-    }
-
-    try {
-        const results = await fetchTitles("/search/multi", {
-            query: query.trim(),
-            include_adult: "false",
-            page: "1"
-        });
-
-        currentMovies = results.filter(item =>
-            item.media_type === "movie" || item.media_type === "tv"
-        );
-
-        currentAnime = results.filter(item =>
-            item.media_type === "movie" || item.media_type === "tv"
-        );
-
-        renderCards(movieGrid, currentMovies, "movie");
-        renderCards(animeGrid, currentAnime, "anime");
-    } catch {
-        showStatus(movieGrid, "Search failed. Please try again.");
-        showStatus(animeGrid, "Search failed. Please try again.");
-    }
-}
-
-function renderWatchlist() {
-    const list = getWatchlist();
-    renderCards(watchlistGrid, list, "movie");
-}
-
-function toggleWatchlist(id, kind) {
-    const source = kind === "anime" ? currentAnime : currentMovies;
-    const title = source.find(item => String(item.id) === String(id));
-
-    let list = getWatchlist();
-    const exists = list.some(item => String(item.id) === String(id));
-
-    if (exists) {
-        list = list.filter(item => String(item.id) !== String(id));
-    } else if (title) {
-        list.push(title);
-    } else {
-        const savedTitle = [...currentMovies, ...currentAnime]
-            .find(item => String(item.id) === String(id));
-
-        if (savedTitle) list.push(savedTitle);
-    }
-
-    saveWatchlist(list);
-    renderCards(movieGrid, currentMovies, "movie");
-    renderCards(animeGrid, currentAnime, "anime");
-    renderWatchlist();
-}
-
-document.getElementById("searchForm").addEventListener("submit", event => {
-    event.preventDefault();
-    searchTitles(searchInput.value);
-});
-
-document.querySelectorAll(".category").forEach(button => {
-    button.addEventListener("click", () => {
-        document.querySelectorAll(".category").forEach(item =>
-            item.classList.remove("active")
-        );
-
-        button.classList.add("active");
-        currentCategory = button.dataset.category;
-
-        if (currentCategory === "anime") {
-            document.getElementById("anime").scrollIntoView();
-        } else if (currentCategory === "all") {
-            document.getElementById("movies").scrollIntoView();
-        } else {
-            document.getElementById("movies").scrollIntoView();
-        }
-    });
-});
-
-document.addEventListener("click", event => {
-    const saveButton = event.target.closest("[data-save]");
-    const detailsButton = event.target.closest("[data-details]");
-
-    if (saveButton) {
-        toggleWatchlist(saveButton.dataset.save, saveButton.dataset.kind);
-    }
-
-    if (detailsButton) {
-        const kind = detailsButton.dataset.kind;
-        const source = kind === "anime" ? currentAnime : currentMovies;
-        const item = source.find(title =>
-            String(title.id) === String(detailsButton.dataset.details)
-        );
-
-        if (item) {
-            const title = item.title || item.name || "Untitled";
-            const date = item.release_date || item.first_air_date || "Unknown";
-            const overview = item.overview || "No synopsis available.";
-            alert(title + "\n\nRelease: " + date +
-                "\n\n" + overview);
-        }
-    }
-});
-
-loadPopular();
-loadAnime();
-renderWatchlist();
-</script>
-
-</body>
-  </html>
+const titles = [
+  {
+    id:"3idiots",
+    title:"3 Idiots",
+    year:2009,
+    genre:"Indian",
+    rating:"8.4",
+    group:"trending",
+    symbol:"3",
+    art:"linear-gradient(145deg,#8d592b,#d6a65b 45%,#292016)",
+    description:"Three engineering students question the pressure of education, friendship and the expectations placed on their futures."
+  },
+  {
+    id:"interstellar",
+    title:"Interstellar",
+    year:2014,
+    genre:"Hollywood",
+    rating:"8.7",
+    group:"trending",
+    symbol:"∞",
+    art:"linear-gradient(145deg,#111b36,#466582 48%,#090b14)",
+    description:"A team of explorers travels beyond familiar space in search of a future for humanity."
+  },
+  {
+    id:"yourname",
+    title:"Your Name",
+    year:2016,
+    genre:"Anime",
+    rating:"8.4",
+    group:"trending",
+    symbol:"君",
+    art:"linear-gradient(145deg,#242f68,#d779a7 55%,#f5b968)",
+    description:"Two teenagers mysteriously begin experiencing each other's lives despite never having met."
+  },
+  {
+    id:"dangal",
+    title:"Dangal",
+    year:2016,
+    genre:"Indian",
+    rating:"8.3",
+    group:"trending",
+    symbol:"D",
+    art:"linear-gradient(145deg,#60452a,#b68a48 48%,#17140f)",
+    description:"A former wrestler trains his daughters to compete in a sport that challenges expectations."
+  },
+  {
+    id:"inception",
+    title:"Inception",
+    year:2010,
+    genre:"Hollywood",
+    rating:"8.8",
+    group:"trending",
+    symbol:"IN",
+    art:"linear-gradient(145deg,#173a46,#437d83 50%,#101a22)",
+    description:"A specialist in extracting secrets from dreams is offered an unusually difficult mission."
+  },
+  {
+    id:"znmd",
+    title:"Zindagi Na Milegi Dobara",
+    year:2011,
+    genre:"Indian",
+    rating:"8.2",
+    group:"editors",
+    symbol:"Z",
+    art:"linear-gradient(145deg,#177c8a,#efb66c 55%,#173c49)",
+    description:"Three friends take a road trip through Spain that changes how they understand life and friendship."
+  },
+  {
+    id:"darkknight",
+    title:"The Dark Knight",
+    year:2008,
+    genre:"Hollywood",
+    rating:"9.0",
+    group:"editors",
+    symbol:"DK",
+    art:"linear-gradient(145deg,#30343b,#69645a 45%,#111113)",
+    description:"Gotham's masked protector faces a criminal who pushes the city toward chaos."
+  },
+  {
+    id:"spirited",
+    title:"Spirited Away",
+    year:2001,
+    genre:"Anime",
+    rating:"8.6",
+    group:"editors",
+    symbol:"千",
+    art:"linear-gradient(145deg,#174d45,#4d9c79 48%,#172a32)",
+    description:"A young girl enters a mysterious spirit world and must find her courage to save her family."
+  },
+  {
+    id:"matrix",
+    title:"The Matrix",
+    year:1999,
+    genre:"Hollywood",
+    rating:"8.7",
+    group:"editors",
+    symbol:"M",
+    art:"linear-gradient(145deg,#103c2b,#318451 48%,#07120e)",
+    description:"A computer hacker discovers that the world he knows hides a startling truth."
+  },
+  {
+    id:"silentvoice",
+    title:"A Silent Voice",
+    year:2016,
+    genre:"Anime",
+    rating:"8.2",
+    group:"hidden",
+    symbol:"聲",
+    art:"linear-gradient(145deg,#6c8aab,#c7b8a9 50%,#283b58)",
+    description:"A young man seeks forgiveness and connection after confronting the harm he caused in childhood."
+  },
+  {
+    id:"littlemiss",
+    title:"Little Miss Sunshine",
+    year:2006,
+    genre:"Hollywood",
+    rating:"7.8",
+    group:"hidden",
+    symbol:"SUN",
+    art:"linear-gradient(145deg,#bf7b27,#f3cf62 52%,#633c24)",
+    description:"A wonderfully imperfect family takes an eventful road trip to support a young girl's dream."
+  },
+  {
+    id:"whisper",
+    title:"Whisper of the Heart",
+    year:1995,
+    genre:"Anime",
+    rating:"7.9",
+    group:"hidden",
+    symbol:"心",
+    art:"linear-gradient(145deg,#415e77,#a9bca6 52%,#283f4e)",
+    description:"A young reader follows her curiosity and discovers her passion for writing and creativity."
+  },
+  {
+    id:"parasite",
+    title:"Parasite",
+    year:2019,
+    genre:"Hollywood",
+    rating:"8.5",
+    group:"global",
+    symbol:"P",
+    art:"linear-gradient(145deg,#263a32,#839c78 50%,#101a17)",
+    description:"Two families from different economic worlds become entangled in an increasingly unpredictable situation."
+  },
+  {
+    id:"rrr",
+    title:"RRR",
+    year:2022,
+    genre:"Indian",
+    rating:"7.8",
+    group:"global",
+    symbol:"RRR",
+    art:"linear-gradient(145deg,#6d271b,#d88932 50%,#24100e)",
+    description:"Two legendary revolutionaries form a powerful bond in a fictional action adventure."
+  },
+  {
+    id:"arrival",
+    title:"Arrival",
+    year:2016,
+    genre:"Hollywood",
+    rating:"7.9",
+    group:"global",
+    symbol:"A",
+    art:"linear-gradient(145deg,#28343f,#777f83 50%,#14191d)",
+    description:"A linguist is recruited to communicate with mysterious visitors who have arrived on Earth."
+  },
+  {
+    id:"onepiece",
+    title:"One Piece",
+    year:1999,
+    genre:"Anime",
+    rating:"9.0",
+    group:"anime",
+    symbol:"海",
+    art:"linear-gradient(145deg,#174d74,#2c9bba 50%,#11253e)",
+    description:"A determined young pirate gathers a crew and sets out on an extraordinary voyage in search of a legendary treasure."
+  },
+  {
+    id:"demon",
+    t
