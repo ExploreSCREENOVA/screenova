@@ -4,534 +4,267 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#10100b">
-<meta name="description" content="Discover movies, anime and entertainment from around the world with SCREENOVA.">
 <title>SCREENOVA | Discover Beyond the Screen</title>
 
 <style>
 :root {
-    --bg: #10100b;
-    --panel: #1c1b10;
-    --yellow: #ffd21f;
-    --text: #f5f3e8;
-    --muted: #aaa99e;
-    --border: #333124;
+  --bg:#10100b;
+  --panel:#1c1b10;
+  --yellow:#ffd21f;
+  --text:#f5f3e8;
+  --muted:#aaa99e;
+  --border:#333124;
 }
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
 }
-
-html {
-    scroll-behavior: smooth;
+header{
+  position:sticky;top:0;z-index:5;
+  background:#10100bf5;border-bottom:1px solid var(--border);
 }
-
-body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.5;
+.nav{
+  max-width:1150px;margin:auto;padding:16px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;flex-wrap:wrap;
 }
-
-button, input {
-    font: inherit;
+.logo{font-size:25px;font-weight:900;letter-spacing:2px}
+.logo span,.yellow{color:var(--yellow)}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+nav a{color:var(--muted);text-decoration:none;font-size:14px}
+nav a:hover{color:var(--yellow)}
+.search{display:flex;gap:7px}
+input{
+  width:190px;max-width:48vw;padding:10px;
+  color:var(--text);background:var(--panel);
+  border:1px solid var(--border);border-radius:7px;
 }
-
-button, a {
-    -webkit-tap-highlight-color: transparent;
+button{cursor:pointer}
+.search button,.primary{
+  border:0;background:var(--yellow);color:#171407;
+  font-weight:bold;padding:10px 14px;border-radius:7px;
 }
-
-a {
-    color: inherit;
-    text-decoration: none;
+.hero{max-width:1150px;margin:auto;padding:70px 20px 45px}
+.eyebrow{color:var(--yellow);font-size:12px;letter-spacing:3px;font-weight:bold}
+h1{font-size:clamp(38px,7vw,72px);line-height:1.08;margin:18px 0}
+.hero p{max-width:580px;color:var(--muted);line-height:1.8;margin-bottom:22px}
+.hero a{display:inline-block;text-decoration:none}
+main{max-width:1150px;margin:auto;padding:0 20px 50px}
+.categories{display:flex;gap:10px;overflow:auto;padding:10px 0 25px}
+.chip{
+  flex-shrink:0;padding:9px 15px;border-radius:25px;
+  border:1px solid var(--border);background:var(--panel);
+  color:var(--text)
 }
-
-header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: rgba(16, 16, 11, 0.96);
-    border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(12px);
+.chip.active,.chip:hover{background:var(--yellow);color:#171407}
+.section{padding:20px 0 35px;scroll-margin-top:100px}
+.heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.heading h2{font-size:25px}
+.heading p{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+.card{
+  min-width:0;background:var(--panel);border:1px solid var(--border);
+  border-radius:10px;overflow:hidden;transition:.2s
 }
-
-.navbar {
-    max-width: 1200px;
-    min-height: 72px;
-    margin: auto;
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+.card:hover{transform:translateY(-4px);border-color:var(--yellow)}
+.poster{
+  height:220px;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:12px;font-size:20px;font-weight:900;
+  color:var(--yellow);background:linear-gradient(145deg,#39351b,#11110c);
+  border-bottom:1px solid var(--border)
 }
-
-.logo {
-    font-size: 26px;
-    font-weight: 900;
-    letter-spacing: 2px;
-    white-space: nowrap;
+.card-info{padding:11px}
+.card h3{font-size:15px;margin-bottom:6px}
+.meta{font-size:12px;color:var(--muted);margin-bottom:10px}
+.actions{display:flex;gap:6px}
+.actions button{
+  flex:1;min-width:0;padding:8px 3px;font-size:11px;
+  background:transparent;color:var(--text);
+  border:1px solid var(--border);border-radius:5px
 }
-
-.logo span {
-    color: var(--yellow);
+.actions button:hover,.actions .saved{color:var(--yellow);border-color:var(--yellow)}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:25px 5px}
+footer{border-top:1px solid var(--border);padding:30px 20px;text-align:center;color:var(--muted);font-size:13px}
+footer p{margin-top:8px}
+@media(max-width:800px){
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .poster{height:200px}
 }
-
-nav {
-    display: flex;
-    gap: 22px;
-    align-items: center;
-}
-
-nav a {
-    color: var(--muted);
-    font-size: 14px;
-    transition: color 0.2s;
-}
-
-nav a:hover {
-    color: var(--yellow);
-}
-
-.search-box {
-    display: flex;
-    gap: 8px;
-    max-width: 320px;
-    width: 100%;
-}
-
-.search-box input {
-    min-width: 0;
-    width: 100%;
-    background: var(--panel);
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 12px;
-    outline: none;
-}
-
-.search-box input:focus {
-    border-color: var(--yellow);
-}
-
-.search-box button,
-.primary-btn {
-    border: 0;
-    background: var(--yellow);
-    color: #171407;
-    font-weight: 800;
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.hero {
-    max-width: 1200px;
-    margin: auto;
-    padding: 75px 20px 55px;
-}
-
-.hero-content {
-    max-width: 760px;
-}
-
-.eyebrow {
-    color: var(--yellow);
-    font-weight: 800;
-    font-size: 12px;
-    letter-spacing: 3px;
-    margin-bottom: 18px;
-}
-
-.hero h1 {
-    font-size: clamp(38px, 7vw, 76px);
-    line-height: 1.06;
-    letter-spacing: -2px;
-    margin-bottom: 20px;
-}
-
-.hero h1 span {
-    color: var(--yellow);
-}
-
-.hero p {
-    max-width: 580px;
-    color: var(--muted);
-    font-size: 16px;
-    margin-bottom: 26px;
-}
-
-.hero-actions {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.secondary-btn {
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text);
-    padding: 10px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.categories {
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 20px 30px;
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-}
-
-.category {
-    flex-shrink: 0;
-    padding: 9px 16px;
-    border: 1px solid var(--border);
-    border-radius: 30px;
-    color: var(--muted);
-    cursor: pointer;
-    background: var(--panel);
-}
-
-.category.active,
-.category:hover {
-    background: var(--yellow);
-    color: #171407;
-    border-color: var(--yellow);
-}
-
-main {
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 20px 50px;
-}
-
-.section {
-    padding: 22px 0 35px;
-    scroll-margin-top: 90px;
-}
-
-.section-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 22px;
-}
-
-.section-heading h2 {
-    font-size: clamp(21px, 4vw, 29px);
-}
-
-.section-heading h2 span {
-    color: var(--yellow);
-}
-
-.section-heading p {
-    font-size: 13px;
-    color: var(--muted);
-}
-
-.movie-grid {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 18px;
-}
-
-.movie-card {
-    min-width: 0;
-    overflow: hidden;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    transition: transform 0.2s, border-color 0.2s;
-}
-
-.movie-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--yellow);
-}
-
-.poster-wrap {
-    position: relative;
-    aspect-ratio: 2 / 3;
-    background: #27251a;
-}
-
-.poster {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-}
-
-.rating {
-    position: absolute;
-    left: 8px;
-    top: 8px;
-    padding: 4px 7px;
-    background: rgba(0, 0, 0, 0.85);
-    color: var(--yellow);
-    font-weight: 800;
-    font-size: 12px;
-    border-radius: 5px;
-}
-
-.movie-info {
-    padding: 12px;
-}
-
-.movie-info h3 {
-    font-size: 15px;
-    line-height: 1.35;
-    margin-bottom: 6px;
-    overflow-wrap: anywhere;
-}
-
-.movie-meta {
-    color: var(--muted);
-    font-size: 12px;
-    margin-bottom: 12px;
-}
-
-.card-actions {
-    display: flex;
-    gap: 7px;
-}
-
-.card-btn {
-    flex: 1;
-    min-width: 0;
-    padding: 8px 5px;
-    border-radius: 6px;
-    font-size: 12px;
-    cursor: pointer;
-    border: 1px solid var(--border);
-    color: var(--text);
-    background: transparent;
-}
-
-.card-btn:hover,
-.card-btn.saved {
-    color: var(--yellow);
-    border-color: var(--yellow);
-}
-
-.status {
-    color: var(--muted);
-    padding: 24px 0;
-    text-align: center;
-    grid-column: 1 / -1;
-}
-
-footer {
-    border-top: 1px solid var(--border);
-    padding: 30px 20px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 13px;
-}
-
-footer strong {
-    color: var(--yellow);
-}
-
-.footer-links {
-    display: flex;
-    gap: 18px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 12px;
-}
-
-.footer-links a:hover {
-    color: var(--yellow);
-}
-
-.hidden {
-    display: none !important;
-}
-
-@media (max-width: 900px) {
-    .navbar {
-        flex-wrap: wrap;
-    }
-
-    nav {
-        order: 3;
-        width: 100%;
-        overflow-x: auto;
-        padding: 4px 0;
-    }
-
-    .search-box {
-        max-width: 280px;
-    }
-
-    .movie-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 14px;
-    }
-
-    .hero {
-        padding-top: 55px;
-    }
-}
-
-@media (max-width: 520px) {
-    .logo {
-        font-size: 23px;
-    }
-
-    .navbar {
-        gap: 12px;
-        padding: 12px 15px;
-    }
-
-    .search-box {
-        order: 2;
-        max-width: none;
-    }
-
-    nav {
-        gap: 18px;
-    }
-
-    .hero {
-        padding: 48px 16px 38px;
-    }
-
-    .hero h1 {
-        letter-spacing: -1px;
-    }
-
-    main {
-        padding: 0 15px 35px;
-    }
-
-    .categories {
-        padding: 0 15px 20px;
-    }
-
-    .movie-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-    }
-
-    .movie-info {
-        padding: 10px;
-    }
-
-    .movie-info h3 {
-        font-size: 14px;
-    }
-
-    .section-heading p {
-        display: none;
-    }
+@media(max-width:520px){
+  .nav{padding:13px}
+  .search{width:100%}
+  .search input{width:100%;max-width:none}
+  nav{gap:15px}
+  .hero{padding:48px 16px 35px}
+  main{padding:0 13px 35px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+  .poster{height:210px}
+  .heading h2{font-size:21px}
+  .heading p{display:none}
 }
 </style>
 </head>
-
 <body>
 
 <header>
-    <div class="navbar">
-        <a class="logo" href="#" aria-label="SCREENOVA home">
-            SCREEN<span>OVA</span>
-        </a>
-
-        <nav aria-label="Main navigation">
-            <a href="#">Home</a>
-            <a href="#movies">Movies</a>
-            <a href="#anime">Anime</a>
-            <a href="#watchlist">Watchlist</a>
-        </nav>
-
-        <form class="search-box" id="searchForm">
-            <input
-                id="searchInput"
-                type="search"
-                placeholder="Search movies..."
-                aria-label="Search movies"
-            >
-            <button type="submit">Search</button>
-        </form>
-    </div>
+  <div class="nav">
+    <a href="#" class="logo" style="text-decoration:none;color:inherit">SCREEN<span class="yellow">OVA</span></a>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#movies">Movies</a>
+      <a href="#anime">Anime</a>
+      <a href="#watchlist">Watchlist</a>
+    </nav>
+    <form class="search" id="searchForm">
+      <input id="searchInput" placeholder="Search titles..." aria-label="Search titles">
+      <button type="submit">Search</button>
+    </form>
+  </div>
 </header>
 
 <section class="hero">
-    <div class="hero-content">
-        <div class="eyebrow">YOUR NEXT FAVORITE STORY STARTS HERE</div>
-        <h1>Discover Beyond <span>the Screen.</span></h1>
-        <p>
-            Explore unforgettable movies, incredible anime and stories
-            from every corner of the world. Your next obsession awaits.
-        </p>
-        <div class="hero-actions">
-            <a class="primary-btn" href="#movies">Explore Movies ↗</a>
-            <a class="secondary-btn" href="#anime">Discover Anime</a>
-        </div>
-    </div>
+  <div class="eyebrow">A WORLD OF STORIES</div>
+  <h1>Discover Beyond<br><span class="yellow">the Screen.</span></h1>
+  <p>
+    From Indian cinema to Hollywood and anime, discover stories
+    that stay with you long after the screen goes dark.
+  </p>
+  <a class="primary" href="#movies">Explore Discoveries ↗</a>
 </section>
 
-<div class="categories" aria-label="Browse categories">
-    <button class="category active" data-category="all">All Discoveries</button>
-    <button class="category" data-category="movie">Movies</button>
-    <button class="category" data-category="anime">Anime</button>
-    <button class="category" data-category="indian">Indian Cinema</button>
-    <button class="category" data-category="international">International</button>
-</div>
-
 <main>
-    <section class="section" id="movies">
-        <div class="section-heading">
-            <div>
-                <h2>Popular <span>Discoveries</span></h2>
-                <p>Stories worth your time.</p>
-            </div>
-        </div>
-        <div class="movie-grid" id="movieGrid">
-            <div class="status">Loading movies...</div>
-        </div>
-    </section>
+  <div class="categories">
+    <button class="chip active" data-filter="All">All</button>
+    <button class="chip" data-filter="Indian">Indian Cinema</button>
+    <button class="chip" data-filter="Hollywood">Hollywood</button>
+    <button class="chip" data-filter="Anime">Anime</button>
+  </div>
 
-    <section class="section" id="anime">
-        <div class="section-heading">
-            <div>
-                <h2>Anime <span>Universe</span></h2>
-                <p>Enter another world.</p>
-            </div>
-        </div>
-        <div class="movie-grid" id="animeGrid">
-            <div class="status">Loading anime...</div>
-        </div>
-    </section>
+  <section class="section" id="movies">
+    <div class="heading">
+      <h2>Popular <span class="yellow">Discoveries</span></h2>
+      <p>Find your next favourite story.</p>
+    </div>
+    <div class="grid" id="movieGrid"></div>
+  </section>
 
-    <section class="section" id="watchlist">
-        <div class="section-heading">
-            <div>
-                <h2>Your <span>Watchlist</span></h2>
-                <p>Keep your next watch close.</p>
-            </div>
-        </div>
-        <div class="movie-grid" id="watchlistGrid">
-            <div class="status">Your watchlist is empty. Save a title to see it here.</div>
-        </div>
-    </section>
+  <section class="section" id="anime">
+    <div class="heading">
+      <h2>Anime <span class="yellow">Universe</span></h2>
+      <p>Enter another world.</p>
+    </div>
+    <div class="grid" id="animeGrid"></div>
+  </section>
+
+  <section class="section" id="watchlist">
+    <div class="heading">
+      <h2>Your <span class="yellow">Watchlist</span></h2>
+      <p>Your saved discoveries.</p>
+    </div>
+    <div class="grid" id="watchlistGrid"></div>
+  </section>
 </main>
 
 <footer>
-    <div class="logo">SCREEN<span>OVA</span></div>
-    <p>Discover Beyond the Screen.</p>
-    <div class="footer-links">
-        <a href="#">Home</a>
-        <a href="#movies">Movies</a>
-        <a href="#anime">Anime</a>
+  <div class="logo">SCREEN<span class="yellow">OVA</span></div>
+  <p>Discover Beyond the Screen.</p>
+  <p>© <span id="year"></span> SCREENOVA</p>
+</footer>
+
+<script>
+const titles = [
+  {id:1,title:"3 Idiots",year:2009,genre:"Indian",type:"movie",rating:"8.4"},
+  {id:2,title:"Dangal",year:2016,genre:"Indian",type:"movie",rating:"8.3"},
+  {id:3,title:"Zindagi Na Milegi Dobara",year:2011,genre:"Indian",type:"movie",rating:"8.2"},
+  {id:4,title:"Interstellar",year:2014,genre:"Hollywood",type:"movie",rating:"8.7"},
+  {id:5,title:"Inception",year:2010,genre:"Hollywood",type:"movie",rating:"8.8"},
+  {id:6,title:"The Dark Knight",year:2008,genre:"Hollywood",type:"movie",rating:"9.0"},
+  {id:7,title:"Your Name",year:2016,genre:"Anime",type:"anime",rating:"8.4"},
+  {id:8,title:"Spirited Away",year:2001,genre:"Anime",type:"anime",rating:"8.6"},
+  {id:9,title:"A Silent Voice",year:2016,genre:"Anime",type:"anime",rating:"8.2"},
+  {id:10,title:"One Piece",year:1999,genre:"Anime",type:"anime",rating:"9.0"},
+  {id:11,title:"3 Idiots",year:2009,genre:"Indian",type:"movie",rating:"8.4"},
+  {id:12,title:"The Matrix",year:1999,genre:"Hollywood",type:"movie",rating:"8.7"}
+];
+
+const movieGrid=document.getElementById("movieGrid");
+const animeGrid=document.getElementById("animeGrid");
+const watchlistGrid=document.getElementById("watchlistGrid");
+const searchInput=document.getElementById("searchInput");
+let filter="All";
+let query="";
+
+function readSaved(){
+  try{return JSON.parse(localStorage.getItem("screenovaSaved")||"[]")}
+  catch(e){return []}
+}
+function writeSaved(ids){
+  try{localStorage.setItem("screenovaSaved",JSON.stringify(ids))}
+  catch(e){}
+}
+function visibleTitles(){
+  return titles.filter(t=>
+    (filter==="All"||t.genre===filter)&&
+    t.title.toLowerCase().includes(query.toLowerCase())
+  );
+}
+function makeCard(t){
+  const saved=readSaved().includes(t.id);
+  return `<article class="card">
+    <div class="poster">${t.title}</div>
+    <div class="card-info">
+      <h3>${t.title}</h3>
+      <div class="meta">${t.year} · ★ ${t.rating}</div>
+      <div class="actions">
+        <button data-info="${t.id}">Details</button>
+        <button data-save="${t.id}" class="${saved?"saved":""}">${saved?"♥ Saved":"♡ Save"}</button>
+      </div>
+    </div>
+  </article>`;
+}
+function render(){
+  const visible=visibleTitles();
+  const movies=visible.filter(t=>t.type==="movie");
+  const anime=visible.filter(t=>t.type==="anime");
+  movieGrid.innerHTML=movies.length?movies.map(makeCard).join(''):
+    '<div class="empty">No movies found. Try another search.</div>';
+  animeGrid.innerHTML=anime.length?anime.map(makeCard).join(''):
+    '<div class="empty">No anime found in this selection.</div>';
+  const saved=readSaved().map(id=>titles.find(t=>t.id===id)).filter(Boolean);
+  watchlistGrid.innerHTML=saved.length?saved.map(makeCard).join(''):
+    '<div class="empty">Your watchlist is empty. Save a title to add it here.</div>';
+}
+document.getElementById("searchForm").addEventListener("submit",e=>{
+  e.preventDefault();query=searchInput.value.trim();render();
+  document.getElementById("movies").scrollIntoView({behavior:"smooth"});
+});
+document.querySelectorAll("[data-filter]").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    filter=btn.dataset.filter;
+    document.querySelectorAll("[data-filter]").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");render();
+  });
+});
+document.addEventListener("click",e=>{
+  const save=e.target.closest("[data-save]");
+  const info=e.target.closest("[data-info]");
+  if(save){
+    const id=Number(save.dataset.save);
+    let ids=readSaved();
+    ids=ids.includes(id)?ids.filter(x=>x!==id):[...ids,id];
+    writeSaved(ids);render();
+  }
+  if(info){
+    const t=titles.find(x=>x.id===Number(info.dataset.info));
+    if(t)alert(t.title+" ("+t.year+")\nCategory: "+t.genre+"\nRating: "+t.rating+"/10\n\nSample listing. Movie descriptions and streaming availability will be added later.");
+  }
+});
+document.getElementById("year").textContent=new Date().getFullYear();
+render();
+</script>
+</body>
+</html>#anime">Anime</a>
         <a href="#watchlist">Watchlist</a>
     </div>
     <p style="margin-top:20px">
